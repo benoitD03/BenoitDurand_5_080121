@@ -25,27 +25,38 @@
         </div>
      </div>
 
-    <!--Fiche du produit-->
-    <div class="container-fluid">
+    <!--Contenu du panier-->
+    <div class="container">
         <div class="row">
-            <div class="col-12 col-md-4">
-                <h2 id="titleProduct"></h2>
-                <p id="descriptionProduct"></p>
-                <p id="priceProduct"></p>
-            </div>
-            <div class="col-12 col-md-4">
-                <img src="" alt="" id="imgProduct">
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Couleurs :</label>
-                    <select class="form-control" id="dropDownList">
-                    </select>
-                </div>
-                <button type="button" class="btn btn-primary" id="addBasket">Ajouter au panier</button>
-            </div>
+              <div class=" col-12 col-md-6 ">
+                  <h2>Afin de valider votre commande, veuillez renseigner les champs ci-dessous :</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="nom">Nom:</label>
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Votre nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom">Prénom:</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Votre prénom">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email :</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="nom@exemple.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="adresse">Adresse :</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Votre adresse">
+                    </div>
+                    <div class="form-group">
+                        <label for="ville">Ville :</label>
+                        <input type="text" class="form-control" id="ville" name="ville" placeholder="Votre ville">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Passer la commande</button>
+                </form>
+              </div>
         </div>
     </div>
+    
 
     <!--Footer-->
     <div class="bg-dark">

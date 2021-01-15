@@ -73,15 +73,29 @@ function displayProduct(data) {
 }
 
 
-
 fetch(apiUrlId)
     .then(response => {
         if(response.ok){
             response.json().then(data => {
-                displayProduct(data);
+                displayProduct(data); 
             })
         } else {
             console.log("erreur");
             }
         
     });
+
+   
+   
+    // Ajouter l'élément au panier
+const addBasket = document.getElementById("addBasket");
+function test() {
+    
+    console.log("Ajout au panier");
+}
+addBasket.addEventListener("click", test);
+    
+
+    
+  
+    
