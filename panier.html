@@ -26,32 +26,50 @@
      </div>
 
     <!--Contenu du panier-->
+     <div class="container">
+         <div class="row">
+             <div class="col-12">
+                 <h3>Articles dans votre panier :</h3>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-12">
+                 <h3>Prix total :</h3>
+             </div>
+         </div>
+     </div>
+    <!--Formulaire de commande-->
     <div class="container">
         <div class="row">
               <div class=" col-12 col-md-6 ">
                   <h2>Afin de valider votre commande, veuillez renseigner les champs ci-dessous :</h2>
-                <form>
+                <form id="form">
                     <div class="form-group">
                         <label for="nom">Nom:</label>
-                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Votre nom">
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Votre nom" required>
+                        <span class="missingField" id="missingLastName"></span>
                     </div>
                     <div class="form-group">
                         <label for="prenom">Prénom:</label>
-                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Votre prénom">
+                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                        <span class="missingField" id="missingFirstName"></span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email :</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="nom@exemple.com">
+                        <input type="text" class="form-control" id="email" name="email" placeholder="nom@exemple.com" required>
+                        <span class="missingField" id="missingEmail"></span>
                     </div>
                     <div class="form-group">
                         <label for="adresse">Adresse :</label>
-                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Votre adresse">
+                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Votre adresse" required>
+                        <span class="missingField" id="missingAddress"></span>
                     </div>
                     <div class="form-group">
                         <label for="ville">Ville :</label>
-                        <input type="text" class="form-control" id="ville" name="ville" placeholder="Votre ville">
+                        <input type="text" class="form-control" id="ville" name="ville" placeholder="Votre ville" required>
+                        <span class="missingField" id="missingCity"></span>
                     </div>
-                    <button type="submit" class="btn btn-primary">Passer la commande</button>
+                    <input type="submit" value="Passer la commande" class="btn btn-primary" id="validationButton">
                 </form>
               </div>
         </div>
