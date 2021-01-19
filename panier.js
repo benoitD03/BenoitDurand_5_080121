@@ -1,4 +1,5 @@
 // *****************    Afficher le contenu du panier    *****************
+
 const basket = JSON.parse(localStorage.getItem("basketContent"));
 const basketList = document.getElementById("basketList");
 
@@ -22,9 +23,28 @@ for(let i = 0; i < basket.length; i++){
     let currentPrice = document.createElement("p");
     currentPrice.innerHTML = basket[i].price;
     list.appendChild(currentPrice);
+
+    let deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.innerHTML = "Supprimer";
+    deleteButton.classList.add("btn", "btn-primary");
+    list.appendChild(deleteButton);
     
 }
 
+// *****************    Calcul du prix total du panier    *****************
+
+let basketSum = 0;
+const totalPrice = document.createElement("p");
+const total = document.getElementById("total");
+total.appendChild(totalPrice);
+    
+    for (let i = 0; i < basket.length; i++) {
+        
+        basketSum = basketSum + parseInt(basket[i].price);
+        totalPrice.innerHTML = basketSum + "€";  
+    }
+    
 // *****************    Vérifier les champs du formulaire    *****************
 
 const form = document.getElementById("form");

@@ -9,7 +9,9 @@ const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 const apiUrlId = `http://localhost:3000/api/teddies/${id}`;
 
-// Afficher la page produit en fonction de l'ourson choisi
+
+// *****************    Afficher la page produit en fonction de l'ourson choisi    *****************
+
 function displayProduct(data) {
     
             productImage.src = data.imageUrl;
@@ -24,7 +26,6 @@ function displayProduct(data) {
   
 }
 
-
 fetch(apiUrlId)
     .then(response => {
         if(response.ok){
@@ -33,17 +34,13 @@ fetch(apiUrlId)
             })
         } else {
             console.log("erreur");
-            }
-        
+            } 
     });
 
    
-   
-    // Ajouter l'élément au panier
-
+// *****************    Ajouter l'élément au panier    *****************
 
 const buttonBasket = document.getElementById("addBasket");
-
 
 buttonBasket.addEventListener("click", function (){
     const colors = document.getElementsByTagName("select");
