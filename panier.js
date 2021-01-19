@@ -1,3 +1,30 @@
+// *****************    Afficher le contenu du panier    *****************
+const basket = JSON.parse(localStorage.getItem("basketContent"));
+const basketList = document.getElementById("basketList");
+
+for(let i = 0; i < basket.length; i++){
+
+    let list = document.createElement("li");
+    basketList.appendChild(list);
+
+    let currentName = document.createElement("p");
+    currentName.innerHTML = basket[i].name;
+    list.appendChild(currentName);
+
+    let currentColor = document.createElement("p");
+    currentColor.innerHTML = "Couleur : " + basket[i].color;
+    list.appendChild(currentColor);
+
+    let currentImage = document.createElement("img");
+    currentImage.src = basket[i].image;
+    list.appendChild(currentImage);
+
+    let currentPrice = document.createElement("p");
+    currentPrice.innerHTML = basket[i].price;
+    list.appendChild(currentPrice);
+    
+}
+
 // *****************    Vérifier les champs du formulaire    *****************
 
 const form = document.getElementById("form");
