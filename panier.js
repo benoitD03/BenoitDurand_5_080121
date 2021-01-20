@@ -8,6 +8,10 @@ for(let i = 0; i < basket.length; i++){
     let list = document.createElement("li");
     basketList.appendChild(list);
 
+    let currentImage = document.createElement("img");
+    currentImage.src = basket[i].image;
+    list.appendChild(currentImage);
+
     let currentName = document.createElement("p");
     currentName.innerHTML = basket[i].name;
     list.appendChild(currentName);
@@ -16,10 +20,6 @@ for(let i = 0; i < basket.length; i++){
     currentColor.innerHTML = "Couleur : " + basket[i].color;
     list.appendChild(currentColor);
 
-    let currentImage = document.createElement("img");
-    currentImage.src = basket[i].image;
-    list.appendChild(currentImage);
-
     let currentPrice = document.createElement("p");
     currentPrice.innerHTML = basket[i].price;
     list.appendChild(currentPrice);
@@ -27,7 +27,7 @@ for(let i = 0; i < basket.length; i++){
     let deleteButton = document.createElement("button");
     deleteButton.type = "button";
     deleteButton.innerHTML = "Supprimer";
-    deleteButton.classList.add("btn", "btn-primary");
+    deleteButton.classList.add("btn", "btn-primary", "mr-4", "deleteButton");
     list.appendChild(deleteButton);
     
 }

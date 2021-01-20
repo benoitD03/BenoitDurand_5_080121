@@ -10,59 +10,42 @@
     <title>Produits</title>
 </head>
 <body>
-
+    
     <!--Menu Navigation-->
-    <div class="bg-dark">
-        <div class="container">
-           <div class="row">
-            <nav class="navbar navbar-expand">
-                <a class="navbar-brand" href="index.html"><img src="logo-orinoco.png" width="125" height="60" alt="Site logo"></a>
-                <ul class="navbar-nav">
-                   <li class="nav-item"><a class="nav-link" href="panier.html"><i class="fas fa-shopping-cart"></i> Panier</a></li>
-                </ul>
-             </nav>
-           </div>
+    <div class="container-fluid header">
+        <div class="row justify-content-between">
+             <a class="navbar-brand ml-5" href="index.html"><img src="logo-orinoco.png" width="125" height="60" alt="Site logo"></a>
+             <a class="navbar-brand mr-5 align-self-center" href="panier.html"><i class="fas fa-shopping-cart"></i> Panier</a>
         </div>
      </div>
 
     <!--Fiche du produit-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 col-md-4">
-                <h2 id="titleProduct"></h2>
-                <p id="descriptionProduct"></p>
-                <p id="priceProduct"></p>
-            </div>
-            <div class="col-12 col-md-4">
-                <img src="" alt="" id="imgProduct">
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Couleurs :</label>
-                    <select class="form-control" id="dropDownList">
-                    </select>
-                </div>
-                <button type="button" class="btn btn-primary" id="addBasket">Ajouter au panier</button>
-            </div>
+    <div class="container product mt-5 mb-5">
+        <h2 class="text-center" id="titleProduct"></h2>
+        <p class="text-center" id="descriptionProduct"></p>
+        <p class="text-center" id="priceProduct"></p>
+        <div class="text-center">
+            <img src="" alt="image de l'ourson" class="mb-4 mt-4" id="imgProduct" width="350" height="250">
         </div>
+        <div class="text-center">
+            <div class="form-group ">
+                <label for="exampleFormControlSelect1">Couleurs :</label>
+                <select class="form-control" id="dropDownList">
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary mb-4" id="addBasket">Ajouter au panier</button>
+        </div> 
     </div>
 
     <!--Footer-->
-    <div class="bg-dark">
-        <div class="container">
-          <div class="row ">
-            <div class="col">
-              <ul class="list-inline text-center">
-                <li class="list-inline-item"><a href="index.html"><img src="logo-orinoco.png" width="125" height="60" alt="Site logo"></a></li>
-                <li class="list-inline-item"><a href="#">À propos</a></li>
-                <li class="list-inline-item"><a href="#">Contact</a></li>
-              </ul>
-            </div>
-          </div>
+    <div class="container-fluid footer">
+        <div class="row">
+              <a class="ml-5" href="index.html"><img src="logo-orinoco.png" width="125" height="60" alt="Site logo"></a>
+              <a class="align-self-center ml-3" href="#">À propos</a>
+              <a class="align-self-center ml-3" href="#">Contact</a>
         </div>
       </div>
 
-    
     <script src="product.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

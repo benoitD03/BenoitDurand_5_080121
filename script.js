@@ -18,7 +18,7 @@ function completeProductList(data) {
         col.appendChild(linkCard);
 
         let card = document.createElement("div");
-        card.classList.add("card");
+        card.classList.add("card", "mb-2");
         linkCard.appendChild(card);
 
         let bearImg = document.createElement("img");

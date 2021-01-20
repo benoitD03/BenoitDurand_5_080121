@@ -1,13 +1,58 @@
-
-
-#imgProduct {
-    width: 350px;
-    height: 250px;
-}
-ul li img {
-    width: 100px;
-    height: 100px;
+/* ************** GENERAL **************  */
+body {
+    color: black;
+    background-color: #FFF6E3;
 }
 li {
     list-style: none;
+}
+
+/* ************** HEADER & FOOTER **************  */
+.header, .footer {
+    background-color: #FFC343;
+}
+
+/* ************** Page d'accueil **************  */
+.jumbotron {
+    background-color: #FFE4AA;
+}
+.card {
+    background-color: #FFE4AA;
+    box-shadow: 3px 3px 5px black;
+}
+
+/* ************** Page produit **************  */
+.product {
+    border: 2px solid black;
+    background-color: #FFE4AA;
+    box-shadow: 3px 3px 15px black;
+}
+
+/* ************** Page Panier **************  */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border: 2px solid black;
+    background-color: #FFE4AA;
+    box-shadow: 3px 3px 5px black;
+}
+li p {
+    margin: auto 0;
+}
+@media screen and (max-width: 768px) {
+    li {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .deleteButton {
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+    }
+}
+
+#basketList li img {
+    width: 150px;
+    height: 100px;
 }
