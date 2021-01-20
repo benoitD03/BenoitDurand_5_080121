@@ -2,9 +2,13 @@
 body {
     color: black;
     background-color: #FFF6E3;
+    font-family: 'poppins', sans-serif;
 }
 li {
     list-style: none;
+}
+p {
+    font-size: 20px;
 }
 
 /* ************** HEADER & FOOTER **************  */

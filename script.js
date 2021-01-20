@@ -31,10 +31,12 @@ function completeProductList(data) {
         card.appendChild(cardBody);
 
         let bearName = document.createElement("h3");
+        bearName.classList.add("text-center");
         bearName.innerText = data[i].name;
         cardBody.appendChild(bearName);
 
         let bearPrice = document.createElement("p");
+        bearPrice.classList.add("text-center");
         bearPrice.innerText = data[i].price / 100 + " €";
         cardBody.appendChild(bearPrice);
     
