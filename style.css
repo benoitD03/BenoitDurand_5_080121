@@ -13,12 +13,13 @@ p {
 
 /* ************** HEADER & FOOTER **************  */
 .header, .footer {
-    background-color: #FFC343;
+    /* background-color: #FFC343; */
+    background-color: #FFE4AA;
 }
 
 /* ************** Page d'accueil **************  */
 .jumbotron {
-    background-color: #FFE4AA;
+    background-color: #B29F78;
 }
 .card {
     background-color: #FFE4AA;

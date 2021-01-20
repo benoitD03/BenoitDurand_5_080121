@@ -33,17 +33,20 @@ for(let i = 0; i < basket.length; i++){
 }
 
 // *****************    Calcul du prix total du panier    *****************
-
-let basketSum = 0;
-const totalPrice = document.createElement("p");
-const total = document.getElementById("total");
-total.appendChild(totalPrice);
+function calculatedTotalPrice (){
+    let basketSum = 0;
+    const totalPrice = document.createElement("p");
+    const total = document.getElementById("total");
+    total.appendChild(totalPrice);
     
     for (let i = 0; i < basket.length; i++) {
         
         basketSum = basketSum + parseInt(basket[i].price);
         totalPrice.innerHTML = basketSum + "€";  
     }
+}
+
+calculatedTotalPrice();
     
 // *****************    Vérifier les champs du formulaire    *****************
 
@@ -123,3 +126,24 @@ function validation (e) {
 }
 
 formValid.addEventListener("click", validation);
+
+
+// *****************    fonctionnement du bouton supprimer   *****************
+
+const deleteButton = document.querySelectorAll(".deleteButton");
+const liste = document.getElementsByTagName("li");
+
+ 
+    for (let i = 0  ; i < basket.length; i++) {
+        let currentButton = deleteButton[i];
+        let currentListe = liste[i];
+ 
+        currentButton.addEventListener("click", () => {
+            basketList.removeChild(currentListe);
+            localStorage.removeItem(basket[i]);
+            calculatedTotalPrice();  
+        });
+    }
+
+
+
