@@ -29,24 +29,21 @@ for(let i = 0; i < basket.length; i++){
     deleteButton.innerHTML = "Supprimer";
     deleteButton.classList.add("btn", "btn-primary", "mr-4", "deleteButton");
     list.appendChild(deleteButton);
-    
+
 }
 
 // *****************    Calcul du prix total du panier    *****************
-function calculatedTotalPrice (){
+
     let basketSum = 0;
-    const totalPrice = document.createElement("p");
-    const total = document.getElementById("total");
-    total.appendChild(totalPrice);
-    
+    const totalPrice = document.getElementById("total");
     for (let i = 0; i < basket.length; i++) {
         
         basketSum = basketSum + parseInt(basket[i].price);
         totalPrice.innerHTML = basketSum + "€";  
     }
-}
 
-calculatedTotalPrice();
+
+
     
 // *****************    Vérifier les champs du formulaire    *****************
 
@@ -134,16 +131,34 @@ const deleteButton = document.querySelectorAll(".deleteButton");
 const liste = document.getElementsByTagName("li");
 
  
-    for (let i = 0  ; i < basket.length; i++) {
+    for (let i = 0; i < basket.length; i++) {
         let currentButton = deleteButton[i];
         let currentListe = liste[i];
  
         currentButton.addEventListener("click", () => {
             basketList.removeChild(currentListe);
-            localStorage.removeItem(basket[i]);
-            calculatedTotalPrice();  
+            window.localStorage.removeItem(basket[i]);
+            basketSum = basketSum - basket[i].price;  
         });
     }
 
 
+// *****************    Créations des éléments à envoyer lors de la validation du formulaire   *****************
+const orderedButton = document.getElementById("validationButton");
+
+function itemsToSend(e) {
+    e.preventDefault();
+    let products = basket.map(basket => basket.id);
+    let contact = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
+        address: address.value,
+        city: city.value
+    }
+    console.log(contact);
+    console.log(products);
+}
+
+orderedButton.addEventListener("click", itemsToSend);
 

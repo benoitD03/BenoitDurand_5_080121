@@ -33,7 +33,7 @@ fetch(apiUrlId)
                 displayProduct(data); 
             })
         } else {
-            console.log("erreur");
+            alert("erreur");
             } 
     });
 
