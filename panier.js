@@ -33,16 +33,17 @@ for(let i = 0; i < basket.length; i++){
 }
 
 // *****************    Calcul du prix total du panier    *****************
-
+function totalPrice (basket){
     let basketSum = 0;
     const totalPrice = document.getElementById("total");
     for (let i = 0; i < basket.length; i++) {
-        
         basketSum = basketSum + parseInt(basket[i].price);
         totalPrice.innerHTML = basketSum + "€";  
     }
+    localStorage.setItem("basketSum", JSON.stringify(basketSum));
+}
 
-
+totalPrice(basket);
 
     
 // *****************    Vérifier les champs du formulaire    *****************
@@ -66,61 +67,64 @@ const inputValid = /^[a-z A-Z éèêëàâäîïùûüôö-]*$/;
 const emailValid = /@/;
 
 
+
 function validation (e) {
-        // Vérifier le nom
-        if (lastName.value == ""){
-            e.preventDefault();
-            missingLastName.innerHTML = "Champ manquant";
-            missingLastName.style.color = "red";
-        } else if (inputValid.test(lastName.value) == false) {
-            missingLastName.innerHTML = "Veuillez renseigner un vrai nom svp.";
-            missingLastName.style.color = "red";
-        } else {
-            missingLastName.innerText = "";
-        }
-        //Vérifier le prénom
-        if (firstName.value == ""){
-            e.preventDefault();
-            missingFistName.innerHTML = "Champ manquant";
-            missingFistName.style.color = "red";
-        } else if (inputValid.test(firstName.value) == false) {
-            missingFistName.innerHTML = "Veuillez renseigner un vrai prénom svp.";
-            missingFistName.style.color = "red";
-        } else {
-            missingFistName.innerText = "";
-        }
-        //Vérifier l'adresse email
-        if (email.value == ""){
-            e.preventDefault();
-            missingEmail.innerHTML = "Champ manquant";
-            missingEmail.style.color = "red";
-        } else if (emailValid.test(email.value) == false) {
-            e.preventDefault();
-            missingEmail.innerHTML = "Veuillez renseigner une adresse email valide svp.";
-            missingEmail.style.color = "red";
-        } else {
-            missingEmail.innerText = "";
-        }
-        //Vérifier l'adresse
-        if (address.value == ""){
-            e.preventDefault();
-            missingAddress.innerHTML = "Champ manquant";
-            missingAddress.style.color = "red";
-        } else {
-            missingAddress.innerText = "";
-        }
-        //Vérifier la ville
-        if (city.value == ""){
-            e.preventDefault();
-            missingCity.innerHTML = "Champ manquant";
-            missingCity.style.color = "red";
-        } else if (inputValid.test(city.value) == false) {
-            missingCity.innerHTML = "Veuillez renseigner une vrai ville svp.";
-            missingCity.style.color = "red";
-        } else {
-            missingCity.innerText = "";
-        }
+    // Vérifier le nom
+    if (lastName.value == ""){
+        e.preventDefault();
+        missingLastName.innerHTML = "Champ manquant";
+        missingLastName.style.color = "red";
+    } else if (inputValid.test(lastName.value) == false) {
+        missingLastName.innerHTML = "Veuillez renseigner un vrai nom svp.";
+        missingLastName.style.color = "red";
+    } else {
+        missingLastName.innerText = "";
+    }
+    //Vérifier le prénom
+    if (firstName.value == ""){
+        e.preventDefault();
+        missingFistName.innerHTML = "Champ manquant";
+        missingFistName.style.color = "red";
+    } else if (inputValid.test(firstName.value) == false) {
+        missingFistName.innerHTML = "Veuillez renseigner un vrai prénom svp.";
+        missingFistName.style.color = "red";
+    } else {
+        missingFistName.innerText = "";
+    }
+    //Vérifier l'adresse email
+    if (email.value == ""){
+        e.preventDefault();
+        missingEmail.innerHTML = "Champ manquant";
+        missingEmail.style.color = "red";
+    } else if (emailValid.test(email.value) == false) {
+        e.preventDefault();
+        missingEmail.innerHTML = "Veuillez renseigner une adresse email valide svp.";
+        missingEmail.style.color = "red";
+    } else {
+        missingEmail.innerText = "";
+    }
+    //Vérifier l'adresse
+    if (address.value == ""){
+        e.preventDefault();
+        missingAddress.innerHTML = "Champ manquant";
+        missingAddress.style.color = "red";
+    } else {
+        missingAddress.innerText = "";
+    }
+    //Vérifier la ville
+    if (city.value == ""){
+        e.preventDefault();
+        missingCity.innerHTML = "Champ manquant";
+        missingCity.style.color = "red";
+    } else if (inputValid.test(city.value) == false) {
+        missingCity.innerHTML = "Veuillez renseigner une vrai ville svp.";
+        missingCity.style.color = "red";
+    } else {
+        missingCity.innerText = "";
+    }
 }
+
+formValid.addEventListener("click", validation);
 
 formValid.addEventListener("click", validation);
 
@@ -137,8 +141,10 @@ const liste = document.getElementsByTagName("li");
  
         currentButton.addEventListener("click", () => {
             basketList.removeChild(currentListe);
-            window.localStorage.removeItem(basket[i]);
-            basketSum = basketSum - basket[i].price;  
+            basket.splice(i, 1);
+            //Remplacement de l'ancien "basketContent" par "basketContent" - l'élément supprimé, dans le localStorage
+            window.localStorage.setItem("basketContent", JSON.stringify(basket));
+            totalPrice(basket);
         });
     }
 
@@ -146,19 +152,46 @@ const liste = document.getElementsByTagName("li");
 // *****************    Créations des éléments à envoyer lors de la validation du formulaire   *****************
 const orderedButton = document.getElementById("validationButton");
 
-function itemsToSend(e) {
-    e.preventDefault();
+function itemsToSend() {
+    
     let products = basket.map(basket => basket.id);
-    let contact = {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        address: address.value,
-        city: city.value
+    let data = {
+        contact: {
+            firstName: firstName.value,
+            lastName: lastName.value,
+            email: email.value,
+            address: address.value,
+            city: city.value
+        },
+        products: products
     }
-    console.log(contact);
-    console.log(products);
+    return data; 
 }
 
 orderedButton.addEventListener("click", itemsToSend);
+
+// *****************    envoi du panier et de l'objet contact   *****************
+
+
+
+orderedButton.addEventListener("click", () => {
+        let data = itemsToSend();
+        
+        
+    fetch("http://localhost:3000/api/teddies/order", {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers : {
+                "Content-Type": "application/json"
+            }})
+            .then(response => response.json())
+            .then(response => {
+                localStorage.setItem("basketData", JSON.stringify(response));
+                window.location.href = "confirmation.html";       
+                console.log(response);    
+  
+            })
+    
+});
+
 

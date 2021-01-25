@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <title>Confirmation de commande</title>
+</head>
+<body>
+     <!--Menu Navigation-->
+     <div class="container-fluid header">
+        <div class="row justify-content-between">
+             <a class="navbar-brand ml-5" href="index.html"><img src="logo-orinoco.png" width="125" height="60" alt="Site logo"></a>
+             <a class="navbar-brand mr-5 align-self-center" href="panier.html"><i class="fas fa-shopping-cart"></i> Panier</a>
+        </div>
+     </div>
+    <div class="container">
+        <h2>Confirmation de commande :</h2>
+        <p>Nous vous remercions, votre commande n° <span id="confirmationOrderId"></span>, d'un prix total de <span id="confirmationPrice"></span> a bien été prise en compte. </p>
+        <p>L'équipe d'Orinoco vous souhaite une agréable journée !</p>
+    </div>
+    <!--Footer-->
+    <div class="container-fluid footer mt-4">
+        <div class="row">
+              <a class="ml-5" href="index.html"><img src="logo-orinoco.png" width="125" height="60" alt="Site logo"></a>
+              <a class="align-self-center ml-3" href="#">À propos</a>
+              <a class="align-self-center ml-3" href="#">Contact</a>
+        </div>
+      </div>
+      <script src="confirmation.js"></script>
+</body>
+</html>
