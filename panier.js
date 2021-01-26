@@ -124,16 +124,10 @@ function validation (e) {
     }
 }
 
-formValid.addEventListener("click", validation);
-
-formValid.addEventListener("click", validation);
-
-
 // *****************    fonctionnement du bouton supprimer   *****************
 
 const deleteButton = document.querySelectorAll(".deleteButton");
 const liste = document.getElementsByTagName("li");
-
  
     for (let i = 0; i < basket.length; i++) {
         let currentButton = deleteButton[i];
@@ -150,10 +144,10 @@ const liste = document.getElementsByTagName("li");
 
 
 // *****************    Créations des éléments à envoyer lors de la validation du formulaire   *****************
-const orderedButton = document.getElementById("validationButton");
 
-function itemsToSend() {
-    
+form.addEventListener("submit", function(e){
+    validation(e);
+    e.preventDefault;
     let products = basket.map(basket => basket.id);
     let data = {
         contact: {
@@ -165,33 +159,21 @@ function itemsToSend() {
         },
         products: products
     }
-    return data; 
-}
-
-orderedButton.addEventListener("click", itemsToSend);
-
-// *****************    envoi du panier et de l'objet contact   *****************
-
-
-
-orderedButton.addEventListener("click", () => {
-        let data = itemsToSend();
-        
-        
+    // *****************    envoi du panier et de l'objet contact   *****************
     fetch("http://localhost:3000/api/teddies/order", {
             method: 'POST',
             body: JSON.stringify(data),
             headers : {
                 "Content-Type": "application/json"
-            }})
+    }})
             .then(response => response.json())
             .then(response => {
                 localStorage.setItem("basketData", JSON.stringify(response));
-                window.location.href = "confirmation.html";       
+                //window.location.href = "confirmation.html";       
                 console.log(response);    
   
             })
-    
+
 });
 
 
