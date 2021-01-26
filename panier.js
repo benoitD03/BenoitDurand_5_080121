@@ -37,9 +37,9 @@ function totalPrice (basket){
     let basketSum = 0;
     const totalPrice = document.getElementById("total");
     for (let i = 0; i < basket.length; i++) {
-        basketSum = basketSum + parseInt(basket[i].price);
-        totalPrice.innerHTML = basketSum + "€";  
+        basketSum = basketSum + parseInt(basket[i].price); 
     }
+    totalPrice.innerHTML = basketSum + "€";  
     localStorage.setItem("basketSum", JSON.stringify(basketSum));
 }
 
@@ -66,17 +66,20 @@ const missingCity = document.getElementById("missingCity");
 const inputValid = /^[a-z A-Z éèêëàâäîïùûüôö-]*$/;
 const emailValid = /@/;
 
-
+let orderValid = true;
 
 function validation (e) {
+    console.log(orderValid);
     // Vérifier le nom
     if (lastName.value == ""){
         e.preventDefault();
         missingLastName.innerHTML = "Champ manquant";
         missingLastName.style.color = "red";
+        orderValid = false;
     } else if (inputValid.test(lastName.value) == false) {
         missingLastName.innerHTML = "Veuillez renseigner un vrai nom svp.";
         missingLastName.style.color = "red";
+        orderValid = false;
     } else {
         missingLastName.innerText = "";
     }
@@ -85,9 +88,11 @@ function validation (e) {
         e.preventDefault();
         missingFistName.innerHTML = "Champ manquant";
         missingFistName.style.color = "red";
+        orderValid = false;
     } else if (inputValid.test(firstName.value) == false) {
         missingFistName.innerHTML = "Veuillez renseigner un vrai prénom svp.";
         missingFistName.style.color = "red";
+        orderValid = false;
     } else {
         missingFistName.innerText = "";
     }
@@ -96,10 +101,12 @@ function validation (e) {
         e.preventDefault();
         missingEmail.innerHTML = "Champ manquant";
         missingEmail.style.color = "red";
+        orderValid = false;
     } else if (emailValid.test(email.value) == false) {
         e.preventDefault();
         missingEmail.innerHTML = "Veuillez renseigner une adresse email valide svp.";
         missingEmail.style.color = "red";
+        orderValid = false;
     } else {
         missingEmail.innerText = "";
     }
@@ -108,6 +115,7 @@ function validation (e) {
         e.preventDefault();
         missingAddress.innerHTML = "Champ manquant";
         missingAddress.style.color = "red";
+        orderValid = false;
     } else {
         missingAddress.innerText = "";
     }
@@ -116,12 +124,17 @@ function validation (e) {
         e.preventDefault();
         missingCity.innerHTML = "Champ manquant";
         missingCity.style.color = "red";
+        orderValid = false;
     } else if (inputValid.test(city.value) == false) {
         missingCity.innerHTML = "Veuillez renseigner une vrai ville svp.";
         missingCity.style.color = "red";
+        orderValid = false;
     } else {
         missingCity.innerText = "";
     }
+    console.log(orderValid);
+    return orderValid;
+    
 }
 
 // *****************    fonctionnement du bouton supprimer   *****************
@@ -145,9 +158,11 @@ const liste = document.getElementsByTagName("li");
 
 // *****************    Créations des éléments à envoyer lors de la validation du formulaire   *****************
 
-form.addEventListener("submit", function(e){
-    validation(e);
-    e.preventDefault;
+form.addEventListener("submit", async function(e){
+    let funcValidation = validation(e);
+    console.log(funcValidation);
+    if(funcValidation == true) {
+        e.preventDefault;
     let products = basket.map(basket => basket.id);
     let data = {
         contact: {
@@ -159,21 +174,27 @@ form.addEventListener("submit", function(e){
         },
         products: products
     }
+    console.log(data);
     // *****************    envoi du panier et de l'objet contact   *****************
-    fetch("http://localhost:3000/api/teddies/order", {
+    await fetch("http://localhost:3000/api/teddies/order", {
             method: 'POST',
             body: JSON.stringify(data),
             headers : {
                 "Content-Type": "application/json"
-    }})
+            }
+        })
             .then(response => response.json())
             .then(response => {
                 localStorage.setItem("basketData", JSON.stringify(response));
-                //window.location.href = "confirmation.html";       
+                //window.location = "confirmation.html";       
                 console.log(response);    
-  
             })
+            //window.location = "confirmation.html";  
+        }
+    
 
 });
+
+
 
 
