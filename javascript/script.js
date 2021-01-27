@@ -2,13 +2,11 @@ const apiUrl = "http://localhost:3000/api/teddies";
 
 let row = document.getElementById("teddies");
 
-
 // *****************    Compléter chaque cartes de la liste des ours en peluche    *****************
 function completeProductList(data) {
 
     for(let i = 0; i < data.length; i++) {
         
-
         let col = document.createElement("div");
         col.classList.add("col-12", "col-md-3", "carte");
         row.appendChild(col);
@@ -43,18 +41,12 @@ function completeProductList(data) {
     }
 }
 
-
 fetch(apiUrl)
-    .then(response => {
-        if(response.ok){
-            response.json().then(data => {
-                completeProductList(data);
-            })
-        } else {
-            for(let i in bearName) {
-                bearName[i].textContent = "Erreur";
-            }
-        }
-    });
+    .then(response => response.json())
+    .then(data => {
+        completeProductList(data);
+    })
+    .catch((error) => alert("Erreur : " + error))
+    
 
 

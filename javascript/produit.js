@@ -27,15 +27,11 @@ function displayProduct(data) {
 }
 
 fetch(apiUrlId)
-    .then(response => {
-        if(response.ok){
-            response.json().then(data => {
+    .then(response => response.json())
+    .then(data => {
                 displayProduct(data); 
             })
-        } else {
-            alert("erreur");
-            } 
-    });
+    .catch((error) => alert("Erreur : " + error))
 
    
 // *****************    Ajouter l'élément au panier    *****************
@@ -54,9 +50,7 @@ function addBasket(chosenColor) {
     if (basketContent === null) {
        basketContent = [];
     }
-
-// Ajouter le produit au local storage
-
+    // Ajouter le produit au local storage
     let teddy = {
         id: id,
         image : productImage.src,
@@ -66,7 +60,7 @@ function addBasket(chosenColor) {
     };
     basketContent.push(teddy);
     localStorage.setItem("basketContent", JSON.stringify(basketContent));
-    console.log(basketContent);
+    alert("Produit ajouté au panier !")
 }
 
     

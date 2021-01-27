@@ -2,45 +2,55 @@
 
 const basket = JSON.parse(localStorage.getItem("basketContent"));
 const basketList = document.getElementById("basketList");
+if (basket == null){
+    let emptyBasket = document.createElement("p");
+    emptyBasket.innerHTML = "Votre panier est vide."
+    basketList.appendChild(emptyBasket);
+} else {
+    for(let i = 0; i < basket.length; i++){
 
-for(let i = 0; i < basket.length; i++){
-
-    let list = document.createElement("li");
-    basketList.appendChild(list);
-
-    let currentImage = document.createElement("img");
-    currentImage.src = basket[i].image;
-    list.appendChild(currentImage);
-
-    let currentName = document.createElement("p");
-    currentName.innerHTML = basket[i].name;
-    list.appendChild(currentName);
-
-    let currentColor = document.createElement("p");
-    currentColor.innerHTML = "Couleur : " + basket[i].color;
-    list.appendChild(currentColor);
-
-    let currentPrice = document.createElement("p");
-    currentPrice.innerHTML = basket[i].price;
-    list.appendChild(currentPrice);
-
-    let deleteButton = document.createElement("button");
-    deleteButton.type = "button";
-    deleteButton.innerHTML = "Supprimer";
-    deleteButton.classList.add("btn", "btn-primary", "mr-4", "deleteButton");
-    list.appendChild(deleteButton);
-
+        let list = document.createElement("li");
+        basketList.appendChild(list);
+    
+        let currentImage = document.createElement("img");
+        currentImage.src = basket[i].image;
+        list.appendChild(currentImage);
+    
+        let currentName = document.createElement("p");
+        currentName.innerHTML = basket[i].name;
+        list.appendChild(currentName);
+    
+        let currentColor = document.createElement("p");
+        currentColor.innerHTML = "Couleur : " + basket[i].color;
+        list.appendChild(currentColor);
+    
+        let currentPrice = document.createElement("p");
+        currentPrice.innerHTML = basket[i].price;
+        list.appendChild(currentPrice);
+    
+        let deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.innerHTML = "Supprimer";
+        deleteButton.classList.add("btn", "btn-primary", "mr-4", "deleteButton");
+        list.appendChild(deleteButton);
+    
+    }
 }
+
 
 // *****************    Calcul du prix total du panier    *****************
 function totalPrice (basket){
     let basketSum = 0;
     const totalPrice = document.getElementById("total");
-    for (let i = 0; i < basket.length; i++) {
-        basketSum = basketSum + parseInt(basket[i].price); 
-    }
-    totalPrice.innerHTML = basketSum + "€";  
-    localStorage.setItem("basketSum", JSON.stringify(basketSum));
+    if (basket == null){
+        basketSum = 0;
+    } else {
+        for (let i = 0; i < basket.length; i++) {
+            basketSum = basketSum + parseInt(basket[i].price); 
+        }
+        totalPrice.innerHTML = basketSum + "€";  
+        localStorage.setItem("basketSum", JSON.stringify(basketSum));
+    }  
 }
 
 totalPrice(basket);
@@ -69,7 +79,6 @@ const emailValid = /@/;
 let orderValid = true;
 
 function validation (e) {
-    console.log(orderValid);
     // Vérifier le nom
     if (lastName.value == ""){
         e.preventDefault();
@@ -132,16 +141,14 @@ function validation (e) {
     } else {
         missingCity.innerText = "";
     }
-    console.log(orderValid);
     return orderValid;
-    
 }
 
 // *****************    fonctionnement du bouton supprimer   *****************
 
 const deleteButton = document.querySelectorAll(".deleteButton");
 const liste = document.getElementsByTagName("li");
- 
+ if (basket != null) {
     for (let i = 0; i < basket.length; i++) {
         let currentButton = deleteButton[i];
         let currentListe = liste[i];
@@ -151,48 +158,46 @@ const liste = document.getElementsByTagName("li");
             basket.splice(i, 1);
             //Remplacement de l'ancien "basketContent" par "basketContent" - l'élément supprimé, dans le localStorage
             window.localStorage.setItem("basketContent", JSON.stringify(basket));
-            totalPrice(basket);
+            totalPrice(basket); // Recalcul du prix total après suppression
         });
     }
+ }
+    
 
 
-// *****************    Créations des éléments à envoyer lors de la validation du formulaire   *****************
+
 
 form.addEventListener("submit", async function(e){
     let funcValidation = validation(e);
-    console.log(funcValidation);
+
     if(funcValidation == true) {
-        e.preventDefault;
-    let products = basket.map(basket => basket.id);
-    let data = {
-        contact: {
-            firstName: firstName.value,
-            lastName: lastName.value,
-            email: email.value,
-            address: address.value,
-            city: city.value
-        },
-        products: products
-    }
-    console.log(data);
-    // *****************    envoi du panier et de l'objet contact   *****************
-    await fetch("http://localhost:3000/api/teddies/order", {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers : {
-                "Content-Type": "application/json"
-            }
-        })
+        e.preventDefault; 
+        // *****************    Créations des éléments à envoyer lors de la validation du formulaire   *****************
+        let products = basket.map(basket => basket.id);
+        let data = {
+            contact: {
+                firstName: firstName.value,
+                lastName: lastName.value,
+                email: email.value,
+                address: address.value,
+                city: city.value
+            },
+            products: products
+        }
+        // *****************    envoi du panier et de l'objet contact   *****************
+        await fetch("http://localhost:3000/api/teddies/order", {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers : {
+                    "Content-Type": "application/json"
+                }
+            })
             .then(response => response.json())
             .then(response => {
-                localStorage.setItem("basketData", JSON.stringify(response));
-                //window.location = "confirmation.html";       
-                console.log(response);    
+                localStorage.setItem("basketData", JSON.stringify(response)); 
             })
-            //window.location = "confirmation.html";  
-        }
-    
-
+            .catch((error) => alert(error))
+    }
 });
 
 
