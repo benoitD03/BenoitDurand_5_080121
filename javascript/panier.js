@@ -76,12 +76,12 @@ const missingCity = document.getElementById("missingCity");
 const inputValid = /^[a-z A-Z éèêëàâäîïùûüôö-]*$/;
 const emailValid = /@/;
 
-let orderValid = true;
 
-function validation (e) {
+function validation () {
+    let orderValid = true;
+
     // Vérifier le nom
     if (lastName.value == ""){
-        e.preventDefault();
         missingLastName.innerHTML = "Champ manquant";
         missingLastName.style.color = "red";
         orderValid = false;
@@ -94,7 +94,6 @@ function validation (e) {
     }
     //Vérifier le prénom
     if (firstName.value == ""){
-        e.preventDefault();
         missingFistName.innerHTML = "Champ manquant";
         missingFistName.style.color = "red";
         orderValid = false;
@@ -107,12 +106,10 @@ function validation (e) {
     }
     //Vérifier l'adresse email
     if (email.value == ""){
-        e.preventDefault();
         missingEmail.innerHTML = "Champ manquant";
         missingEmail.style.color = "red";
         orderValid = false;
     } else if (emailValid.test(email.value) == false) {
-        e.preventDefault();
         missingEmail.innerHTML = "Veuillez renseigner une adresse email valide svp.";
         missingEmail.style.color = "red";
         orderValid = false;
@@ -121,7 +118,7 @@ function validation (e) {
     }
     //Vérifier l'adresse
     if (address.value == ""){
-        e.preventDefault();
+        //e.preventDefault();
         missingAddress.innerHTML = "Champ manquant";
         missingAddress.style.color = "red";
         orderValid = false;
@@ -130,7 +127,7 @@ function validation (e) {
     }
     //Vérifier la ville
     if (city.value == ""){
-        e.preventDefault();
+        //e.preventDefault();
         missingCity.innerHTML = "Champ manquant";
         missingCity.style.color = "red";
         orderValid = false;
@@ -164,14 +161,11 @@ const liste = document.getElementsByTagName("li");
  }
     
 
-
-
-
-form.addEventListener("submit", async function(e){
-    let funcValidation = validation(e);
+// *****************    Validation du formulaire  *****************
+ formValid.addEventListener("click", function(){
+    let funcValidation = validation();
 
     if(funcValidation == true) {
-        e.preventDefault; 
         // *****************    Créations des éléments à envoyer lors de la validation du formulaire   *****************
         let products = basket.map(basket => basket.id);
         let data = {
@@ -185,7 +179,7 @@ form.addEventListener("submit", async function(e){
             products: products
         }
         // *****************    envoi du panier et de l'objet contact   *****************
-        await fetch("http://localhost:3000/api/teddies/order", {
+         fetch("http://localhost:3000/api/teddies/order", {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers : {
@@ -195,8 +189,9 @@ form.addEventListener("submit", async function(e){
             .then(response => response.json())
             .then(response => {
                 localStorage.setItem("basketData", JSON.stringify(response)); 
+                window.location.href = "confirmation.html";
             })
-            .catch((error) => alert(error))
+            .catch((error) => alert("Erreur : " + error))
     }
 });
 

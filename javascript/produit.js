@@ -12,8 +12,7 @@ const apiUrlId = `http://localhost:3000/api/teddies/${id}`;
 
 // *****************    Afficher la page produit en fonction de l'ourson choisi    *****************
 
-function displayProduct(data) {
-    
+function displayProduct(data) { 
             productImage.src = data.imageUrl;
             productTitle.innerHTML = data.name;
             productDescription.innerHTML = data.description;
@@ -23,7 +22,6 @@ function displayProduct(data) {
                 dropDownList.appendChild(colors);
                 colors.innerHTML = data.colors[i];
             }
-  
 }
 
 fetch(apiUrlId)
