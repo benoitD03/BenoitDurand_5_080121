@@ -37,6 +37,25 @@ if (basket == null){
     }
 }
 
+// *****************    fonctionnement du bouton supprimer   *****************
+
+const deleteButton = document.querySelectorAll(".deleteButton");
+const liste = document.getElementsByTagName("li");
+ if (basket != null) {
+    for (let i = 0; i < basket.length; i++) {
+        let currentButton = deleteButton[i];
+        let currentListe = liste[i];
+ 
+        currentButton.addEventListener("click", () => {
+            basketList.removeChild(currentListe);
+            basket.splice(i, 1);
+            //Remplacement de l'ancien "basketContent" par "basketContent" - l'élément supprimé, dans le localStorage
+            window.localStorage.setItem("basketContent", JSON.stringify(basket));
+            totalPrice(basket); // Recalcul du prix total après suppression
+        });
+    }
+ }
+ 
 
 // *****************    Calcul du prix total du panier    *****************
 function totalPrice (basket){
@@ -140,26 +159,7 @@ function validation () {
     }
     return orderValid;
 }
-
-// *****************    fonctionnement du bouton supprimer   *****************
-
-const deleteButton = document.querySelectorAll(".deleteButton");
-const liste = document.getElementsByTagName("li");
- if (basket != null) {
-    for (let i = 0; i < basket.length; i++) {
-        let currentButton = deleteButton[i];
-        let currentListe = liste[i];
- 
-        currentButton.addEventListener("click", () => {
-            basketList.removeChild(currentListe);
-            basket.splice(i, 1);
-            //Remplacement de l'ancien "basketContent" par "basketContent" - l'élément supprimé, dans le localStorage
-            window.localStorage.setItem("basketContent", JSON.stringify(basket));
-            totalPrice(basket); // Recalcul du prix total après suppression
-        });
-    }
- }
-    
+   
 
 // *****************    Validation du formulaire  *****************
  formValid.addEventListener("click", function(){
